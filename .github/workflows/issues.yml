@@ -13,4 +13,3 @@ jobs:
     steps:
       - name: Log Issue Details
         run: echo "Issue event triggered for action: ${{ github.event.action }}"
-
