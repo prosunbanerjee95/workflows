@@ -1,15 +1,14 @@
-name: Issue Trigger Workflow
+name: Test Workflow
 
 on:
   issues:
     types:
       - opened
-      - labeled
 
 jobs:
-  issue-event:
+  test-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Log Issue Details
-        # run: echo "Issue event triggered for action: ${{ github.event.action }}"
+      - name: Print Hello World
+        run: echo "Hello, World!"
