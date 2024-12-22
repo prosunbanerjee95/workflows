@@ -1,0 +1,30 @@
+name: Keyfactor Container Signing Composite
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  Keyfactor_Signum:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/capital-markets-architecture/signum-keyfactor-cosign:main
+      credentials:
+        username: 'your-username-with-access'
+        password: ${{ secrets.TEST_KEY }}
+
+    steps:
+      # Containers must run on Linux-based operating systems
+      - name: Keyfactor Signing
+        uses: Capital-Markets-Architecture/CM-Action-Keyfactor-container-poc@64cd7d972acfd08b7e044e599d34916b977e6bad
+        with:
+          image_name: "ghcr.io/capital-markets-architecture/wfc-lrpwriters:24.2.43"
+          repo_uname: "your-username"
+          repo: "ghcr.io"
+          SIGNUM_CLIENTID: ${{ secrets.SIGNUM_CLIENTID }}
+          SIGNUM_PASSWORD: ${{ secrets.SIGNUM_PASSWORD }}
+          REPO_PWD: ${{ secrets.KEY }}
+          PASSWORD: ${{ secrets.KEY }}
