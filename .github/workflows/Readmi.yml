@@ -3,9 +3,11 @@ name: Keyfactor Container Signing Composite
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches:
+      - "main"
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - "main"
 
 jobs:
   Keyfactor_Signum:
@@ -13,11 +15,13 @@ jobs:
     container:
       image: ghcr.io/capital-markets-architecture/signum-keyfactor-cosign:main
       credentials:
-        username: 'your-username-with-access'
-        password: ${{ secrets.TEST_KEY }}
+        username: ${{ secrets.TEST_USERNAME }} # Ensure secret exists
+        password: ${{ secrets.TEST_KEY }}     # Ensure secret exists
 
     steps:
-      # Containers must run on Linux-based operating systems
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Keyfactor Signing
         uses: Capital-Markets-Architecture/CM-Action-Keyfactor-container-poc@64cd7d972acfd08b7e044e599d34916b977e6bad
         with:
